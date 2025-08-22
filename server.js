@@ -33,10 +33,25 @@ app.get("/bruxos/:id", (req, res) => {
             mensagem: "Bruxo(a) nao encontrado!"
         })
     }
-    
 })
 
+// Criar a rota do GetByName
+app.get("/bruxos/nome/:nome", (req,res) => {
+    let nome = req.params.nome;
+    nome = nome.toLowerCase();
 
+    const nomesFiltrados = bruxos.filter(b => b.nome.toLowerCase().includes(nome));
+
+    if(nomesFiltrados) {
+        res.status(200).json(nomesFiltrados);
+    } else {
+        res.status(404).json ({
+            mensagem: "Bruxo(a) nao encontrado!"
+        })
+    }
+
+
+})
 // Iniciar o servidor
 app.listen(serverPort, () => {
     console.log("Servidor esta rodando");
